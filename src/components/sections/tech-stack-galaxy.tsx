@@ -44,18 +44,23 @@ export function TechStackGalaxy() {
   }, [inView, setHidden]);
 
   useEffect(() => {
-    if (selectedId !== null) return;
+    if (selectedId !== null || !inView) return;
     let raf = 0;
     let last = performance.now();
+    let accumulator = 0;
     const tick = (now: number) => {
       const dt = now - last;
       last = now;
-      setRotationAngle((a) => (a + dt * 0.008) % 360);
+      accumulator += dt;
+      if (accumulator >= 100) {
+        setRotationAngle((a) => (a + accumulator * 0.008) % 360);
+        accumulator = 0;
+      }
       raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [selectedId]);
+  }, [selectedId, inView]);
 
   const selectedCategory =
     selectedId !== null
