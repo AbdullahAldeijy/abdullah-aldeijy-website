@@ -6,6 +6,7 @@ import { Navbar } from "@/components/layout/navbar";
 import { PersistentRobot } from "@/components/layout/persistent-robot";
 import { SmoothScroll } from "@/components/layout/smooth-scroll";
 import { Footer } from "@/components/layout/footer";
+import { RobotVisibilityProvider } from "@/lib/robot-visibility";
 
 const geistSans = Geist({
   variable: "--font-sans",
@@ -32,11 +33,13 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <SmoothScroll />
-        <Navbar />
-        <PersistentRobot />
-        {children}
-        <Footer />
+        <RobotVisibilityProvider>
+          <SmoothScroll />
+          <Navbar />
+          <PersistentRobot />
+          {children}
+          <Footer />
+        </RobotVisibilityProvider>
       </body>
     </html>
   );
