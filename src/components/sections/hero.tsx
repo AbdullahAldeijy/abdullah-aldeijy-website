@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { SplineScene } from "@/components/ui/splite";
 import { Spotlight } from "@/components/ui/spotlight";
+import { SocialContact } from "@/components/sections/social-contact";
 
 const SPLINE_SCENE = "https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode";
 const ENTRANCE_EASE = [0.22, 1, 0.36, 1] as const;
@@ -53,6 +54,8 @@ export function Hero() {
           </div>
         </motion.div>
       </div>
+
+      <SocialContact />
     </section>
   );
 }
