@@ -1,13 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { NAV_LINKS, SITE } from "@/lib/constants";
 
 export function Navbar() {
-  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -20,7 +18,7 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        "fixed inset-x-0 top-0 z-20 transition-colors ease-out-quint",
+        "fixed inset-x-0 top-0 z-50 transition-colors ease-out-quint",
         scrolled
           ? "border-b border-border/40 bg-background/60 backdrop-blur-xl"
           : "border-b border-transparent bg-transparent",
@@ -28,32 +26,23 @@ export function Navbar() {
     >
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
         <Link
-          href="/"
+          href="#hero"
           className="text-lg font-semibold tracking-tight text-foreground"
         >
           {SITE.name}
         </Link>
 
         <ul className="hidden items-center gap-8 md:flex">
-          {NAV_LINKS.map((link) => {
-            const active =
-              link.href === "/"
-                ? pathname === "/"
-                : pathname.startsWith(link.href);
-            return (
-              <li key={link.href}>
-                <Link
-                  href={link.href}
-                  className={cn(
-                    "text-sm transition-colors ease-out-quint hover:text-foreground",
-                    active ? "text-foreground" : "text-muted-foreground",
-                  )}
-                >
-                  {link.label}
-                </Link>
-              </li>
-            );
-          })}
+          {NAV_LINKS.map((link) => (
+            <li key={link.href}>
+              <Link
+                href={link.href}
+                className="text-sm text-muted-foreground transition-colors ease-out-quint hover:text-foreground"
+              >
+                {link.label}
+              </Link>
+            </li>
+          ))}
         </ul>
 
         <Link

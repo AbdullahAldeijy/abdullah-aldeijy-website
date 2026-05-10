@@ -3,6 +3,9 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { SITE } from "@/lib/constants";
 import { Navbar } from "@/components/layout/navbar";
+import { PersistentRobot } from "@/components/layout/persistent-robot";
+import { SmoothScroll } from "@/components/layout/smooth-scroll";
+import { Footer } from "@/components/layout/footer";
 
 const geistSans = Geist({
   variable: "--font-sans",
@@ -14,16 +17,8 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-// Arabic font is wired up but unused until next-intl lands.
-// import { IBM_Plex_Sans_Arabic } from "next/font/google";
-// const plexArabic = IBM_Plex_Sans_Arabic({
-//   variable: "--font-arabic",
-//   subsets: ["arabic"],
-//   weight: ["300", "400", "500", "600", "700"],
-// });
-
 export const metadata: Metadata = {
-  title: `${SITE.fullName} — ${SITE.tagline}`,
+  title: `${SITE.fullName} — ${SITE.title}`,
   description: SITE.tagline,
 };
 
@@ -37,8 +32,11 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <SmoothScroll />
         <Navbar />
+        <PersistentRobot />
         {children}
+        <Footer />
       </body>
     </html>
   );
