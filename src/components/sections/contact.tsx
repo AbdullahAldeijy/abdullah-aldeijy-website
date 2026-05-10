@@ -58,6 +58,10 @@ export function Contact() {
                 </div>
               </li>
             </ul>
+
+            <p className="mt-6 text-xs text-muted-foreground">
+              Or use the social bar on the left to reach me on any platform.
+            </p>
           </motion.div>
 
           <motion.form

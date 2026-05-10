@@ -6,6 +6,8 @@ import { Navbar } from "@/components/layout/navbar";
 import { PersistentRobot } from "@/components/layout/persistent-robot";
 import { SmoothScroll } from "@/components/layout/smooth-scroll";
 import { Footer } from "@/components/layout/footer";
+import SocialLinks from "@/components/ui/social-links";
+import { socialLinks } from "@/lib/social-links-data";
 import { RobotVisibilityProvider } from "@/lib/robot-visibility";
 
 const geistSans = Geist({
@@ -37,6 +39,11 @@ export default function RootLayout({
           <SmoothScroll />
           <Navbar />
           <PersistentRobot />
+          <SocialLinks
+            links={socialLinks}
+            showOnMobile
+            floatingButtonColor="bg-blue-500"
+          />
           {children}
           <Footer />
         </RobotVisibilityProvider>

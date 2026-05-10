@@ -107,7 +107,7 @@ export function PersistentRobot() {
   return (
     <>
       <motion.div
-        className="pointer-events-none fixed inset-0 z-30"
+        className="pointer-events-none fixed inset-0 z-30 hidden md:block"
         animate={{ opacity: hidden ? 0 : 1 }}
         transition={{ duration: HIDE_DURATION, ease: HIDE_EASE }}
       >
