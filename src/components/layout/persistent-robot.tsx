@@ -7,8 +7,8 @@ import { SplineScene } from "@/components/ui/splite";
 const SPLINE_SCENE =
   "https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode";
 
-const SHRINK_START_VH = 1.0;
-const SHRINK_END_VH = 1.5;
+const SHRINK_START_VH = 0.25;
+const SHRINK_END_VH = 0.85;
 const SCALE_MIN_DESKTOP = 0.22;
 
 export function PersistentRobot() {
@@ -47,22 +47,22 @@ export function PersistentRobot() {
   const opacity = useTransform(scrollY, (latest) => {
     const vh = vhRef.current;
     if (isMobileRef.current) {
-      if (latest <= vh) return 0.4;
-      if (latest >= vh * 1.3) return 0;
-      return 0.4 - ((latest - vh) / (vh * 0.3)) * 0.4;
+      if (latest <= vh * 0.4) return 0.4;
+      if (latest >= vh * 0.85) return 0;
+      return 0.4 - ((latest - vh * 0.4) / (vh * 0.45)) * 0.4;
     }
-    return latest <= vh * 1.2 ? 1 : 0.9;
+    return latest <= vh * 0.7 ? 1 : 0.9;
   });
 
   const pulseOpacity = useTransform(scrollY, (latest) => {
     if (isMobileRef.current) return 0;
-    return latest >= vhRef.current * 1.4 ? 1 : 0;
+    return latest >= vhRef.current * 0.9 ? 1 : 0;
   });
 
   const smoothScale = useSpring(scale, {
-    stiffness: 110,
-    damping: 22,
-    mass: 0.6,
+    stiffness: 140,
+    damping: 24,
+    mass: 0.4,
   });
 
   return (
