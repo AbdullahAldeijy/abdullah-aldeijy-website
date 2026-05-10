@@ -46,7 +46,7 @@ const ICONS: SocialIcon[] = [
     href: `mailto:${SITE.email}`,
     Icon: MailGlyph,
     external: false,
-    variant: "primary",
+    variant: "ghost",
     hoverShadow: "hover:shadow-blue-500/50",
   },
   {
