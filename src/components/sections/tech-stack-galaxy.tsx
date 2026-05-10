@@ -4,8 +4,10 @@ import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useInView } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
 import { SplineScene } from "@/components/ui/splite";
+import { RobotFallback } from "@/components/ui/robot-fallback";
 import { categories } from "@/lib/tech-stack-data";
 import { useRobotVisibility } from "@/lib/robot-visibility";
+import { useLowEndDevice } from "@/lib/use-low-end-device";
 
 const SPLINE_SCENE =
   "https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode";
@@ -31,6 +33,7 @@ export function TechStackGalaxy() {
   const sectionRef = useRef<HTMLElement>(null);
   const inView = useInView(sectionRef, { amount: 0.35 });
   const { setHidden } = useRobotVisibility();
+  const isLowEnd = useLowEndDevice();
 
   const [rotationAngle, setRotationAngle] = useState(0);
   const [selectedId, setSelectedId] = useState<number | null>(null);
@@ -89,8 +92,12 @@ export function TechStackGalaxy() {
       <div className="relative mx-auto hidden h-[700px] w-full max-w-5xl items-center justify-center md:flex">
         <div className="pointer-events-none absolute z-10 flex h-48 w-48 items-center justify-center">
           <div className="relative h-44 w-44 overflow-hidden rounded-full border border-white/20 bg-gradient-to-br from-blue-500/20 to-purple-500/20 backdrop-blur-md">
-            {inView && (
-              <SplineScene scene={SPLINE_SCENE} className="h-full w-full" />
+            {isLowEnd ? (
+              <RobotFallback />
+            ) : (
+              inView && (
+                <SplineScene scene={SPLINE_SCENE} className="h-full w-full" />
+              )
             )}
           </div>
           <div className="absolute h-56 w-56 animate-ping rounded-full border border-white/10 opacity-50" />
