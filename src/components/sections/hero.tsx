@@ -26,7 +26,7 @@ export function Hero() {
         fill="var(--color-primary-glow)"
       />
 
-      <div className="absolute inset-0 z-10 flex items-center bg-gradient-to-r from-black/80 via-black/40 to-transparent px-6 md:px-0 md:pl-24">
+      <div className="pointer-events-none absolute inset-0 z-10 flex items-center bg-gradient-to-r from-black/80 via-black/40 to-transparent px-6 md:px-0 md:pl-24">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
@@ -42,7 +42,7 @@ export function Hero() {
           <div className="mt-10">
             <Link
               href="#contact"
-              className="group relative inline-flex items-center justify-center overflow-hidden rounded-full border border-primary/40 bg-primary/10 px-7 py-3 text-sm font-medium text-foreground transition-all ease-out-quint hover:border-primary hover:bg-primary/20 hover:shadow-[0_0_40px_-5px_var(--color-primary)]"
+              className="group pointer-events-auto relative inline-flex items-center justify-center overflow-hidden rounded-full border border-primary/40 bg-primary/10 px-7 py-3 text-sm font-medium text-foreground transition-all ease-out-quint hover:border-primary hover:bg-primary/20 hover:shadow-[0_0_40px_-5px_var(--color-primary)]"
             >
               <span className="relative z-10">Let&apos;s Talk</span>
               <span
