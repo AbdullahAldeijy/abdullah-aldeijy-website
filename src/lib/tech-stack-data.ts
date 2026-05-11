@@ -13,6 +13,7 @@ export type Tool = {
   name: string;
   slug: string;
   color: string;
+  iconUrl?: string;
 };
 
 export type Category = {
@@ -30,8 +31,19 @@ export const categories: Category[] = [
     icon: Cloud,
     color: "from-blue-500 to-cyan-500",
     tools: [
-      { name: "Microsoft Azure", slug: "microsoftazure", color: "0078D4" },
-      { name: "AWS", slug: "amazonwebservices", color: "FF9900" },
+      {
+        name: "Microsoft Azure",
+        slug: "microsoftazure",
+        color: "0078D4",
+        iconUrl:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azure/azure-original.svg",
+      },
+      {
+        name: "AWS",
+        slug: "amazonwebservices",
+        color: "FF9900",
+        iconUrl: "https://www.vectorlogo.zone/logos/amazon_aws/amazon_aws-icon.svg",
+      },
       { name: "Google Cloud", slug: "googlecloud", color: "4285F4" },
     ],
   },
@@ -60,7 +72,13 @@ export const categories: Category[] = [
       { name: "JavaScript", slug: "javascript", color: "F7DF1E" },
       { name: "Java", slug: "openjdk", color: "ED8B00" },
       { name: ".NET", slug: "dotnet", color: "512BD4" },
-      { name: "PowerShell", slug: "powershell", color: "5391FE" },
+      {
+        name: "PowerShell",
+        slug: "powershell",
+        color: "5391FE",
+        iconUrl:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/powershell/powershell-original.svg",
+      },
       { name: "Bash", slug: "gnubash", color: "4EAA25" },
     ],
   },
@@ -102,7 +120,13 @@ export const categories: Category[] = [
     icon: Wrench,
     color: "from-violet-500 to-purple-500",
     tools: [
-      { name: "VS Code", slug: "visualstudiocode", color: "007ACC" },
+      {
+        name: "VS Code",
+        slug: "visualstudiocode",
+        color: "007ACC",
+        iconUrl:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg",
+      },
       { name: "Figma", slug: "figma", color: "F24E1E" },
     ],
   },

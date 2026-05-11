@@ -224,7 +224,10 @@ export function TechStackGalaxy() {
                     >
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
-                        src={`https://cdn.simpleicons.org/${tool.slug}/${tool.color}`}
+                        src={
+                          tool.iconUrl ??
+                          `https://cdn.simpleicons.org/${tool.slug}/${tool.color}`
+                        }
                         alt={tool.name}
                         width={32}
                         height={32}
@@ -263,7 +266,10 @@ export function TechStackGalaxy() {
                   >
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
-                      src={`https://cdn.simpleicons.org/${tool.slug}/${tool.color}`}
+                      src={
+                        tool.iconUrl ??
+                        `https://cdn.simpleicons.org/${tool.slug}/${tool.color}`
+                      }
                       alt={tool.name}
                       width={24}
                       height={24}
