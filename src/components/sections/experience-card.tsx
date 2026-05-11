@@ -67,92 +67,82 @@ export function ExperienceCard({ exp, index }: Props) {
               style={{ background: exp.glowColor }}
             />
 
-            <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-b from-white/[0.07] to-white/[0.02] p-6 backdrop-blur-xl md:p-8">
+            <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-b from-white/[0.07] to-white/[0.02] p-5 backdrop-blur-xl md:p-6">
               <div
                 className={`absolute -top-20 h-40 w-40 rounded-full bg-gradient-to-br opacity-20 blur-3xl ${
                   isLeft ? "-right-20" : "-left-20"
                 } ${exp.brandColor}`}
               />
 
-              <div className="mb-6 flex items-start justify-between">
-                <div className="relative flex h-16 w-16 items-center justify-center overflow-hidden rounded-xl border border-white/10 bg-white/5 p-2 transition-transform duration-500 group-hover:scale-110 md:h-20 md:w-20">
+              <div className="mb-4 flex items-start justify-between">
+                <div className="relative flex h-14 w-14 items-center justify-center overflow-hidden rounded-xl border border-white/10 bg-white/5 p-1.5 transition-transform duration-500 group-hover:scale-110 md:h-16 md:w-16">
                   <Image
                     src={exp.logo}
                     alt={`${exp.company} logo`}
                     fill
                     className="object-contain p-2"
-                    sizes="80px"
+                    sizes="64px"
                   />
                 </div>
 
-                <div className="flex flex-col items-end gap-2">
+                <div className="flex flex-col items-end gap-1.5">
                   {exp.isCurrent && (
-                    <div className="flex items-center gap-1.5 rounded-full border border-green-500/30 bg-green-500/10 px-3 py-1">
+                    <div className="flex items-center gap-1.5 rounded-full border border-green-500/30 bg-green-500/10 px-2.5 py-0.5">
                       <div className="h-1.5 w-1.5 animate-pulse rounded-full bg-green-400" />
-                      <span className="text-xs font-medium text-green-300">
+                      <span className="text-[10px] font-medium text-green-300">
                         Current
                       </span>
                     </div>
                   )}
-                  <span className="font-mono text-xs text-white/40">
+                  <span className="font-mono text-[10px] text-white/40">
                     {duration}
                   </span>
                 </div>
               </div>
 
-              <div className="mb-4">
-                <h3 className="mb-1 text-2xl font-bold text-white md:text-3xl">
-                  {exp.company}
-                </h3>
-                <p
-                  className={`bg-gradient-to-r bg-clip-text text-base font-semibold text-transparent md:text-lg ${exp.brandColor}`}
-                >
-                  {exp.role}
-                </p>
-              </div>
+              <h3 className="text-xl font-bold text-white md:text-2xl">
+                {exp.company}
+              </h3>
+              <p
+                className={`bg-gradient-to-r bg-clip-text text-sm font-semibold text-transparent md:text-base ${exp.brandColor}`}
+              >
+                {exp.role}
+              </p>
 
-              <div className="mb-4 flex flex-wrap gap-3 text-xs text-white/50">
+              <div className="mt-3 flex flex-wrap gap-x-3 gap-y-1 text-[11px] text-white/50">
                 <div className="flex items-center gap-1.5">
-                  <Calendar size={12} />
+                  <Calendar size={11} />
                   <span>{period}</span>
                 </div>
                 <div className="flex items-center gap-1.5">
-                  <MapPin size={12} />
+                  <MapPin size={11} />
                   <span>{exp.location}</span>
                 </div>
                 <div className="flex items-center gap-1.5">
-                  <Briefcase size={12} />
+                  <Briefcase size={11} />
                   <span>{exp.type}</span>
                 </div>
               </div>
 
-              <p className="mb-5 text-sm leading-relaxed text-white/70">
-                {exp.description}
-              </p>
-
-              <div className="mb-5 space-y-2">
-                {exp.highlights.map((highlight, i) => (
-                  <motion.div
+              <div className="mt-4 space-y-1.5">
+                {exp.highlights.slice(0, 2).map((highlight) => (
+                  <div
                     key={highlight}
-                    initial={{ opacity: 0, x: -10 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.2 + i * 0.05 }}
-                    className="flex items-start gap-2 text-xs text-white/60 md:text-sm"
+                    className="flex items-start gap-2 text-[11px] text-white/60 md:text-xs"
                   >
                     <span
-                      className={`mt-1 h-1 w-1 flex-shrink-0 rounded-full bg-gradient-to-r ${exp.brandColor}`}
+                      className={`mt-1.5 h-1 w-1 flex-shrink-0 rounded-full bg-gradient-to-r ${exp.brandColor}`}
                     />
                     <span>{highlight}</span>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
 
-              <div className="flex flex-wrap gap-1.5 border-t border-white/5 pt-4">
+              <div className="mt-4 flex flex-wrap gap-1.5 border-t border-white/5 pt-3">
                 {exp.skills.map((skill) => (
                   <span
                     key={skill}
-                    className="rounded-full border border-white/10 bg-white/5 px-2 py-1 text-[10px] text-white/60 transition-colors hover:border-white/30"
+                    className="rounded-full border border-white/10 bg-white/5 px-2 py-0.5 text-[10px] text-white/60"
                   >
                     {skill}
                   </span>

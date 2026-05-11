@@ -1,31 +1,11 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
-import { Cloud, GraduationCap, Sparkles } from "lucide-react";
-import { CertificationCard } from "./certification-card";
+import { ExternalLink, Sparkles } from "lucide-react";
 import { certifications } from "@/lib/certifications-data";
 
 const ENTRANCE_EASE = [0.22, 1, 0.36, 1] as const;
-
-const EDUCATION = [
-  {
-    title: "Cloud Computing Bootcamp",
-    org: "Saudi Digital Academy",
-    period: "02/2025 – 05/2025",
-  },
-  {
-    title: "Information Systems",
-    org: "Imam Mohammad bin Saud Islamic University",
-    period: "2019 – 2024",
-  },
-];
-
-const SKILLS = [
-  "System Analysis and Business Technology",
-  "Requirements Gathering & Analysis",
-  "Cross-Functional Collaboration",
-  "Problem Solving & Critical Thinking",
-];
 
 const STATS = [
   { value: "5+", label: "Years Experience" },
@@ -87,59 +67,53 @@ export function About() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.7, delay: 0.15, ease: ENTRANCE_EASE }}
-            className="space-y-6"
+            className="space-y-3"
           >
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-md">
-              <div className="mb-4 flex items-center gap-2 text-sm text-primary-glow">
-                <GraduationCap className="h-4 w-4" />
-                Education
-              </div>
-              <ul className="space-y-4">
-                {EDUCATION.map((edu) => (
-                  <li key={edu.title}>
-                    <div className="text-base font-medium text-foreground">
-                      {edu.title}
-                    </div>
-                    <div className="mt-1 text-sm text-muted-foreground">
-                      {edu.org} · {edu.period}
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-              {SKILLS.map((skill) => (
-                <div
-                  key={skill}
-                  className="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-neutral-300 backdrop-blur-md"
-                >
-                  {skill}
-                </div>
-              ))}
-            </div>
-          </motion.div>
-        </div>
-
-        <div className="mt-24">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.7, ease: ENTRANCE_EASE }}
-            className="mb-12 flex items-center gap-3"
-          >
-            <Cloud className="h-6 w-6 text-blue-400" />
-            <h3 className="text-2xl font-semibold tracking-tight md:text-4xl">
+            <div className="mb-4 text-xs uppercase tracking-widest text-white/40">
               Certifications
-            </h3>
-          </motion.div>
-
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {certifications.map((cert, index) => (
-              <CertificationCard key={cert.id} cert={cert} index={index} />
+            </div>
+            {certifications.map((cert) => (
+              <a
+                key={cert.id}
+                href={cert.verifyUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center gap-4 rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-md transition-all ease-out-quint hover:border-white/30 hover:bg-white/10"
+              >
+                <div className="relative h-14 w-14 flex-shrink-0">
+                  <Image
+                    src={cert.badgeImage}
+                    alt={cert.title}
+                    fill
+                    className="object-contain"
+                    sizes="56px"
+                  />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center gap-2">
+                    <span
+                      className={`rounded-full bg-gradient-to-r px-2 py-0.5 font-mono text-[10px] font-bold tracking-wider text-white ${cert.color}`}
+                    >
+                      {cert.code}
+                    </span>
+                    <span className="text-[10px] uppercase tracking-wider text-white/40">
+                      {cert.level}
+                    </span>
+                  </div>
+                  <h4 className="mt-1 truncate text-sm font-semibold text-white">
+                    {cert.title}
+                  </h4>
+                  <p className="mt-0.5 text-[11px] text-white/40">
+                    {cert.issuer} · {cert.year}
+                  </p>
+                </div>
+                <ExternalLink
+                  size={14}
+                  className="flex-shrink-0 text-white/40 transition-colors group-hover:text-white"
+                />
+              </a>
             ))}
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
