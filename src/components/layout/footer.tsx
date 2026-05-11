@@ -1,5 +1,5 @@
 import type { ComponentType, SVGProps } from "react";
-import { Mail } from "lucide-react";
+import { Heart, Mail } from "lucide-react";
 import {
   GithubGlyph,
   LinkedinGlyph,
@@ -36,8 +36,10 @@ export function Footer() {
   return (
     <footer className="relative z-30 border-t border-white/10 bg-background/60 py-10 backdrop-blur-md">
       <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-6 px-6 md:flex-row">
-        <p className="text-sm text-muted-foreground">
-          © 2026 {SITE.fullName}. Built with Next.js &amp; deployed on Netlify.
+        <p className="flex items-center gap-1.5 text-sm text-muted-foreground">
+          Built with
+          <Heart className="h-3.5 w-3.5 fill-primary text-primary" />
+          by {SITE.fullName}
         </p>
         <ul className="flex gap-3">
           {FOOTER_ICONS.map(({ label, href, Icon, external }) => (

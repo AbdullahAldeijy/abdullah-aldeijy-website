@@ -32,7 +32,8 @@ export const certifications: Certification[] = [
     ],
     color: "from-blue-500 to-cyan-500",
     glowColor: "rgba(59, 130, 246, 0.5)",
-    verifyUrl: "#",
+    verifyUrl:
+      "https://learn.microsoft.com/en-us/users/abdullah-aldeijy/credentials/6584b9cb87fd9aec",
     year: "2025",
   },
   {
@@ -53,7 +54,8 @@ export const certifications: Certification[] = [
     ],
     color: "from-purple-500 to-indigo-500",
     glowColor: "rgba(139, 92, 246, 0.5)",
-    verifyUrl: "#",
+    verifyUrl:
+      "https://learn.microsoft.com/en-us/users/abdullah-aldeijy/credentials/81f587a6a50cf4f0",
     year: "2025",
   },
   {
@@ -74,7 +76,8 @@ export const certifications: Certification[] = [
     ],
     color: "from-amber-500 to-orange-500",
     glowColor: "rgba(245, 158, 11, 0.5)",
-    verifyUrl: "#",
+    verifyUrl:
+      "https://learn.microsoft.com/en-us/users/abdullah-aldeijy/credentials/166ef70da9f1e563",
     year: "2025",
   },
 ];
