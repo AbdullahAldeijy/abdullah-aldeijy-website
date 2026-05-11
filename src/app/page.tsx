@@ -1,8 +1,7 @@
 import { Hero } from "@/components/sections/hero";
 import { About } from "@/components/sections/about";
-import { Works } from "@/components/sections/works";
 import { TechStackGalaxy } from "@/components/sections/tech-stack-galaxy";
-import { Certifications } from "@/components/sections/certifications";
+import { Experience } from "@/components/sections/experience";
 import { Articles } from "@/components/sections/articles";
 
 export default function Home() {
@@ -10,9 +9,8 @@ export default function Home() {
     <main className="relative">
       <Hero />
       <About />
-      <Works />
       <TechStackGalaxy />
-      <Certifications />
+      <Experience />
       <Articles />
     </main>
   );
