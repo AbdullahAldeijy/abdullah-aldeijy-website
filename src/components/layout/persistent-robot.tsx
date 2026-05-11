@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef } from "react";
 import type { ComponentProps } from "react";
+import { usePathname } from "next/navigation";
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import type SplineComponent from "@splinetool/react-spline";
 import { SplineScene } from "@/components/ui/splite";
@@ -24,6 +25,7 @@ type SplineApp = Parameters<
 >[0];
 
 export function PersistentRobot() {
+  const pathname = usePathname();
   const { scrollY } = useScroll();
   const vhRef = useRef(800);
   const isMobileRef = useRef(false);
@@ -97,6 +99,8 @@ export function PersistentRobot() {
     damping: 24,
     mass: 0.4,
   });
+
+  if (pathname !== "/") return null;
 
   return (
     <>
