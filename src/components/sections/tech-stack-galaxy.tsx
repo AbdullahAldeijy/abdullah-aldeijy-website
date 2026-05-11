@@ -2,7 +2,12 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { AnimatePresence, motion, useInView } from "framer-motion";
+import {
+  AnimatePresence,
+  motion,
+  useInView,
+  useReducedMotion,
+} from "framer-motion";
 import { ArrowLeft } from "lucide-react";
 import { categories } from "@/lib/tech-stack-data";
 
@@ -28,28 +33,37 @@ function getOrbitPosition(
 export function TechStackGalaxy() {
   const sectionRef = useRef<HTMLElement>(null);
   const inView = useInView(sectionRef, { amount: 0.35 });
+  const prefersReducedMotion = useReducedMotion();
 
   const [rotationAngle, setRotationAngle] = useState(0);
   const [selectedId, setSelectedId] = useState<number | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    if (selectedId !== null || !inView) return;
+    const mq = window.matchMedia("(max-width: 767px)");
+    const update = () => setIsMobile(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+
+  useEffect(() => {
+    if (selectedId !== null || !inView || isMobile || prefersReducedMotion) return;
     let raf = 0;
     let last = performance.now();
-    let accumulator = 0;
+    const FRAME_MS = 33;
+    const DEG_PER_FRAME = 0.15;
     const tick = (now: number) => {
       const dt = now - last;
-      last = now;
-      accumulator += dt;
-      if (accumulator >= 100) {
-        setRotationAngle((a) => (a + accumulator * 0.008) % 360);
-        accumulator = 0;
+      if (dt >= FRAME_MS) {
+        setRotationAngle((a) => (a + DEG_PER_FRAME) % 360);
+        last = now;
       }
       raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [selectedId, inView]);
+  }, [selectedId, inView, isMobile, prefersReducedMotion]);
 
   const selectedCategory =
     selectedId !== null
@@ -152,7 +166,7 @@ export function TechStackGalaxy() {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
               transition={{ duration: 0.5, ease: ENTRANCE_EASE }}
-              className="absolute inset-0"
+              className="absolute inset-0 gpu-accelerated"
             >
               {categories.map((cat, i) => {
                 const { x, y } = getOrbitPosition(
@@ -213,7 +227,7 @@ export function TechStackGalaxy() {
                   >
                     <span
                       title={tool.name}
-                      className="flex h-16 w-16 items-center justify-center rounded-xl border border-white/10 bg-white/5 backdrop-blur-md transition-all duration-300 group-hover:scale-110 group-hover:border-[var(--tool-color)] group-hover:shadow-[0_0_30px_-5px_var(--tool-color)]"
+                      className="flex h-16 w-16 items-center justify-center rounded-xl border border-white/10 bg-white/5 transition-all duration-300 group-hover:scale-110 group-hover:border-[var(--tool-color)] group-hover:shadow-[0_0_30px_-5px_var(--tool-color)]"
                     >
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
@@ -255,7 +269,7 @@ export function TechStackGalaxy() {
                 {cat.tools.map((tool) => (
                   <div
                     key={tool.slug}
-                    className="flex flex-col items-center gap-2 rounded-xl border border-white/10 bg-white/5 p-3 backdrop-blur-md"
+                    className="flex flex-col items-center gap-2 rounded-xl border border-white/10 bg-white/5 p-3"
                   >
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img

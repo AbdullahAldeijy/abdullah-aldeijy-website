@@ -24,7 +24,7 @@ export function About() {
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.7, ease: ENTRANCE_EASE }}
           >
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 backdrop-blur-md">
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5">
               <Sparkles size={14} className="text-blue-400" />
               <span className="text-xs uppercase tracking-widest text-white/70">
                 About Me
@@ -49,7 +49,7 @@ export function About() {
               {STATS.map((stat) => (
                 <div
                   key={stat.label}
-                  className="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-md"
+                  className="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-sm"
                 >
                   <div className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-xl font-bold text-transparent md:text-2xl">
                     {stat.value}
@@ -78,7 +78,7 @@ export function About() {
                 href={cert.verifyUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center gap-4 rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-md transition-all ease-out-quint hover:border-white/30 hover:bg-white/10"
+                className="group flex items-center gap-4 rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-sm transition-all ease-out-quint hover:border-white/30 hover:bg-white/10"
               >
                 <div className="relative h-14 w-14 flex-shrink-0">
                   <Image

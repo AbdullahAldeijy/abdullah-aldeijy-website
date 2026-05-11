@@ -18,7 +18,7 @@ export function Articles() {
 
       <div className="mx-auto max-w-7xl">
         <div className="mb-16 text-center">
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 backdrop-blur-md">
+          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5">
             <Sparkles size={14} className="text-blue-400" />
             <span className="text-xs uppercase tracking-widest text-white/70">
               Latest Writing

@@ -19,7 +19,7 @@ export function ArticlesGrid({ articles }: { articles: ArticleMeta[] }) {
         >
           <Link
             href={`/articles/${article.slug}`}
-            className="group block h-full overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-b from-white/[0.05] to-white/[0.02] backdrop-blur-xl transition-all duration-500 hover:-translate-y-2 hover:border-white/20 hover:from-white/[0.08] hover:to-white/[0.04]"
+            className="group block h-full overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-b from-white/[0.05] to-white/[0.02] backdrop-blur-md transition-all duration-500 hover:-translate-y-2 hover:border-white/20 hover:from-white/[0.08] hover:to-white/[0.04]"
           >
             <div className="relative aspect-video overflow-hidden">
               <Image

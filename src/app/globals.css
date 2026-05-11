@@ -145,6 +145,14 @@
   }
 }
 
+@layer utilities {
+  .gpu-accelerated {
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+}
+
 @keyframes spotlight {
   0% {
     opacity: 0;

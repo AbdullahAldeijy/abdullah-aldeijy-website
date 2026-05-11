@@ -1,13 +1,18 @@
 "use client";
 
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type { ComponentProps } from "react";
 import { usePathname } from "next/navigation";
-import { motion, useScroll, useSpring, useTransform } from "framer-motion";
+import {
+  motion,
+  useMotionValueEvent,
+  useReducedMotion,
+  useScroll,
+  useSpring,
+  useTransform,
+} from "framer-motion";
 import type SplineComponent from "@splinetool/react-spline";
 import { SplineScene } from "@/components/ui/splite";
-import { RobotFallback } from "@/components/ui/robot-fallback";
-import { useRobotVisibility } from "@/lib/robot-visibility";
 import { useLowEndDevice } from "@/lib/use-low-end-device";
 
 const SPLINE_SCENE =
@@ -15,9 +20,8 @@ const SPLINE_SCENE =
 
 const SHRINK_START_VH = 0.25;
 const SHRINK_END_VH = 0.85;
+const FREEZE_AT_VH = 0.7;
 const SCALE_MIN_DESKTOP = 0.22;
-const HIDE_DURATION = 0.5;
-const HIDE_EASE = [0.22, 1, 0.36, 1] as const;
 const RENDER_SCALE = 0.5;
 
 type SplineApp = Parameters<
@@ -29,9 +33,11 @@ export function PersistentRobot() {
   const { scrollY } = useScroll();
   const vhRef = useRef(800);
   const isMobileRef = useRef(false);
-  const { hidden } = useRobotVisibility();
   const isLowEnd = useLowEndDevice();
+  const prefersReducedMotion = useReducedMotion();
   const splineAppRef = useRef<SplineApp | null>(null);
+  const [shouldRender, setShouldRender] = useState(false);
+  const [frozen, setFrozen] = useState(false);
 
   useEffect(() => {
     const updateVh = () => {
@@ -52,14 +58,28 @@ export function PersistentRobot() {
   }, []);
 
   useEffect(() => {
+    if (isLowEnd || prefersReducedMotion) {
+      setShouldRender(false);
+      return;
+    }
+    const timer = window.setTimeout(() => setShouldRender(true), 1500);
+    return () => window.clearTimeout(timer);
+  }, [isLowEnd, prefersReducedMotion]);
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const next = latest >= vhRef.current * FREEZE_AT_VH;
+    setFrozen((prev) => (prev === next ? prev : next));
+  });
+
+  useEffect(() => {
     const app = splineAppRef.current;
     if (!app) return;
-    if (hidden) {
+    if (frozen) {
       app.stop();
     } else {
       app.play();
     }
-  }, [hidden]);
+  }, [frozen]);
 
   const handleSplineLoad = useCallback<NonNullable<ComponentProps<typeof SplineComponent>["onLoad"]>>(
     (app) => {
@@ -70,9 +90,9 @@ export function PersistentRobot() {
           window.innerHeight * RENDER_SCALE,
         );
       }
-      if (hidden) app.stop();
+      if (frozen) app.stop();
     },
-    [hidden],
+    [frozen],
   );
 
   const scale = useTransform(scrollY, (latest) => {
@@ -101,14 +121,12 @@ export function PersistentRobot() {
   });
 
   if (pathname !== "/") return null;
+  if (isLowEnd || prefersReducedMotion) return null;
+  if (!shouldRender) return null;
 
   return (
     <>
-      <motion.div
-        className="pointer-events-none fixed inset-0 z-30 hidden md:block"
-        animate={{ opacity: hidden ? 0 : 1 }}
-        transition={{ duration: HIDE_DURATION, ease: HIDE_EASE }}
-      >
+      <div className="pointer-events-none fixed inset-0 z-30 hidden gpu-accelerated md:block">
         <motion.div
           className="h-full w-full"
           style={{
@@ -121,27 +139,25 @@ export function PersistentRobot() {
         >
           <motion.div
             className="pointer-events-auto h-full w-full"
-            animate={{ y: [0, -4, 0] }}
-            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+            animate={frozen ? { y: 0 } : { y: [0, -4, 0] }}
+            transition={
+              frozen
+                ? { duration: 0.4, ease: "easeOut" }
+                : { duration: 5, repeat: Infinity, ease: "easeInOut" }
+            }
           >
-            {isLowEnd ? (
-              <RobotFallback />
-            ) : (
-              <SplineScene
-                scene={SPLINE_SCENE}
-                className="h-full w-full"
-                onLoad={handleSplineLoad}
-              />
-            )}
+            <SplineScene
+              scene={SPLINE_SCENE}
+              className="h-full w-full"
+              onLoad={handleSplineLoad}
+            />
           </motion.div>
         </motion.div>
-      </motion.div>
+      </div>
 
-      <motion.span
+      <span
         aria-hidden
         className="pointer-events-none fixed bottom-12 right-12 z-30 hidden md:flex"
-        animate={{ opacity: hidden ? 0 : 1 }}
-        transition={{ duration: HIDE_DURATION, ease: HIDE_EASE }}
       >
         <motion.span
           className="relative flex h-3 w-3"
@@ -150,7 +166,7 @@ export function PersistentRobot() {
           <span className="absolute inset-0 animate-ping rounded-full bg-emerald-400 opacity-75" />
           <span className="relative inline-flex h-3 w-3 rounded-full bg-emerald-400 shadow-lg shadow-emerald-400/60" />
         </motion.span>
-      </motion.span>
+      </span>
     </>
   );
 }

@@ -41,7 +41,7 @@ export function ExperienceCard({ exp, index }: Props) {
               style={{ background: exp.glowColor }}
             />
 
-            <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-b from-white/[0.07] to-white/[0.02] p-5 backdrop-blur-xl md:p-6">
+            <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-b from-white/[0.07] to-white/[0.02] p-5 backdrop-blur-md md:p-6">
               <div
                 className={`absolute -right-20 -top-20 h-40 w-40 rounded-full bg-gradient-to-br opacity-20 blur-3xl ${exp.brandColor}`}
               />
