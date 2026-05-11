@@ -8,6 +8,25 @@ import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
 import { ArrowLeft, Calendar, Clock, User } from "lucide-react";
 import { getAllArticles, getArticleBySlug } from "@/lib/articles";
+import { ReadingProgress } from "@/components/sections/reading-progress";
+
+const mdxComponents = {
+  img: ({ src, alt }: { src?: string; alt?: string }) => (
+    <span className="my-8 block">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={src}
+        alt={alt || ""}
+        className="w-full rounded-2xl border border-white/10 shadow-2xl"
+      />
+      {alt && (
+        <span className="mt-3 block text-center text-xs italic text-white/40">
+          {alt}
+        </span>
+      )}
+    </span>
+  ),
+};
 
 export async function generateStaticParams() {
   return getAllArticles().map((a) => ({ slug: a.slug }));
@@ -44,6 +63,7 @@ export default async function ArticlePage({
 
   return (
     <main className="min-h-screen bg-black pb-24 pt-32">
+      <ReadingProgress />
       <article className="mx-auto max-w-3xl px-6">
         <Link
           href="/articles"
@@ -122,6 +142,7 @@ export default async function ArticlePage({
         >
           <MDXRemote
             source={article.content}
+            components={mdxComponents}
             options={{
               mdxOptions: {
                 remarkPlugins: [remarkGfm],

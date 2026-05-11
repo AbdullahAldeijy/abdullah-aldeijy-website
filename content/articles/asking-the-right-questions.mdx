@@ -1,0 +1,127 @@
+---
+title: "Asking the Right Questions: How Solution Architects Choose the Right Cloud Compute"
+description: "Behind the scenes of pre-sales meetings: the questions we ask, the decisions we make, and why the cloud is never one-size-fits-all."
+date: "2026-05-12"
+author: "Abdullah Aldeijy"
+tags: ["Cloud", "Azure", "Solution Architecture", "Pre-Sales"]
+cover: "/images/articles/asking-questions.jpg"
+published: true
+---
+
+## The Real Job of a Solution Architect
+
+As a Solution Architect working in pre-sales, my day is full of meetings. We sit with clients, sometimes for hours, before we even open a laptop or write a single line of architecture. Why? Because the technology is the easy part. Understanding what the client actually needs is the hard part.
+
+Most of these meetings are not about Azure or AWS or which service is "best." They are about **questions**. Lots of them. We ask, we listen, we ask again. We dig into the current infrastructure they already have, what is working, what is broken, what they wish they could change, and what they are trying to achieve in the next two years.
+
+Only after we have a clear picture do we start talking about cloud services. And even then, the decision is rarely simple.
+
+## The Decision That Looks Simple But Is Not
+
+One of the most common decisions we help clients with is choosing the right **compute service**. It sounds basic — "we need to run an application, where should we host it?" — but the answer depends on a dozen factors that the client often has not considered.
+
+To make this easier, Microsoft has published an excellent decision flowchart for Azure compute services. I use this exact diagram in client meetings as a conversation starter. Let me walk you through it.
+
+![Azure Compute Decision Tree](/images/articles/azure-compute-decision-tree.png)
+
+## Reading the Diagram: The Two Main Paths
+
+The flowchart starts with one critical question: **Are you migrating an existing workload, or building something new?**
+
+This is the fork in the road that changes everything.
+
+### Path 1: Migration (Lift and Shift)
+
+If the client is migrating an existing application that is not yet optimized for the cloud, the next questions are:
+
+- **Can it be containerized?** If yes, we look at container-based services.
+- **Is it a VMware workload?** This opens the door to Azure VMware Solution, which preserves the existing VMware investments.
+- **Is it a commercial off-the-shelf application?** If yes, Azure App Service can often host it with minimal changes.
+- **If none of the above?** Azure Virtual Machines remain the safe, flexible choice.
+
+The migration path is about **preserving what works while reducing operational burden**. Speed matters more than perfection.
+
+### Path 2: Building New (Cloud-Native)
+
+When the client is building something new, the conversation becomes much richer. The flowchart asks several layered questions:
+
+**Do you require full control?**
+If yes, **Azure Virtual Machines** give the client complete control over the OS, networking, and software stack. We choose this when there is custom software, legacy dependencies, or strict compliance requirements.
+
+**High-performance computing workload?**
+For batch processing, simulations, or scientific workloads, **Azure Batch** is purpose-built. It manages thousands of VMs efficiently for compute-heavy jobs.
+
+**Event-driven workload with short-lived processes?**
+This is the sweet spot for **Azure Functions** — serverless code that runs when triggered, scales automatically, and only costs money when it executes. Perfect for webhooks, scheduled jobs, and lightweight APIs.
+
+**Managed web hosting platform?**
+If the client wants a fully managed platform for web apps and APIs without thinking about servers, **Azure App Service** is the answer. It handles scaling, patching, and load balancing automatically.
+
+**Need a container hosting platform?**
+This is where the conversation gets interesting. The flowchart breaks containers into several options:
+
+- **Azure Container Instances** for simple, isolated container runs.
+- **Azure Red Hat OpenShift** for enterprise teams already invested in OpenShift.
+- **Azure Kubernetes Service (AKS)** for teams that need full Kubernetes capabilities.
+- **Azure Container Apps** for serverless containers with built-in scaling and microservices patterns.
+
+The right choice depends on the team's expertise, operational maturity, and how much abstraction they want.
+
+## The Two Categories at the Bottom
+
+The diagram also lists two helpful groupings:
+
+**Container-exclusive services**: services designed specifically for containers — ACI, AKS, ARO, Container Apps, and self-managed Kubernetes/OpenShift on VMs.
+
+**Container-compatible services**: services that can run containers but were not built exclusively for them — Azure Batch, Azure Functions, and Azure App Service.
+
+This distinction matters when the client says "we want containers" because it changes whether they need a container-first platform or a general-purpose platform that supports containers.
+
+## Why I Ask So Many Questions Before Pointing at the Diagram
+
+Here is the truth most consultants will not tell you: **the diagram is useless without context**.
+
+I have seen architects pull up this flowchart in client meetings and start "selling" services before understanding the client's environment. That is the wrong order. The diagram is a tool for **structured thinking**, not a substitute for it.
+
+When I sit with a client, my questions usually go like this:
+
+- What is the current infrastructure running on? On-premises? Another cloud? Hybrid?
+- What is the application's traffic pattern? Steady, bursty, seasonal?
+- What is the development team's expertise? Are they comfortable with containers, or are they still on traditional VMs?
+- What are the compliance and data residency requirements?
+- What is the budget reality, not the wishful thinking?
+- How critical is this workload? Can it tolerate downtime, or does it need 99.99% SLA?
+- What is the team size that will operate this? Two people or twenty?
+
+Only after these answers does the flowchart become useful. Without them, even Microsoft's best diagram is just a colorful poster.
+
+## A Note on Other Cloud Providers
+
+The diagram I shared is **specific to Azure compute services**. AWS and Google Cloud have similar services, but the names, capabilities, and decision points are different.
+
+For example:
+
+- Azure App Service → roughly equivalent to AWS Elastic Beanstalk or Google App Engine
+- Azure Functions → AWS Lambda or Google Cloud Functions
+- Azure Kubernetes Service → AWS EKS or Google GKE
+- Azure Container Apps → AWS App Runner or Google Cloud Run
+
+The principles of choosing compute are universal — control versus convenience, cost versus flexibility, complexity versus simplicity — but the specific services and their trade-offs vary across providers. In a multi-cloud environment, a Solution Architect needs to know the equivalent on each platform.
+
+## What Most Clients Do Not Know
+
+In most cases, the client or the system architect on the other side of the table knows very little about cloud services. That is not a criticism — it is the reality. Cloud is a deep field, and most teams are experts in their business domain, not in cloud architecture.
+
+This is where my role becomes important. I am not there to sell them the most expensive service or the trendiest one. I am there to be **their honest consultant**. My job is to ask the right questions, listen carefully, and translate their business needs into the right technical decision.
+
+Sometimes the answer is a sophisticated Kubernetes setup. Sometimes the answer is a basic Virtual Machine because the team is small and the workload is simple. The "best" architecture is the one that fits the client, not the one that looks impressive on a slide.
+
+## Closing Thoughts
+
+If you are a Solution Architect, a developer thinking about cloud, or a client preparing for a meeting with a consultant — remember this: **the right questions matter more than the right answers**.
+
+A great architect does not show up with a solution. A great architect shows up with curiosity, asks the questions that uncover what the client actually needs, and only then reaches for the diagram.
+
+The diagram does not make the decision. **You do.** And you can only make a good decision if you have asked the right questions first.
+
+Diagram source: [Microsoft Azure documentation - Choose an Azure compute service](https://learn.microsoft.com/en-us/azure/architecture/guide/technology-choices/compute-decision-tree)
