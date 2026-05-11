@@ -60,7 +60,7 @@ export function TechStackGalaxy() {
     <section
       ref={sectionRef}
       id="tech-stack"
-      className="relative w-full scroll-mt-20 bg-black py-24 md:py-32"
+      className="relative w-full scroll-mt-20 bg-black py-16 md:py-32"
     >
       <div className="mx-auto mb-12 max-w-7xl px-6">
         <motion.h2
@@ -68,7 +68,7 @@ export function TechStackGalaxy() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.7, ease: ENTRANCE_EASE }}
-          className="text-4xl font-semibold tracking-tight md:text-6xl"
+          className="text-3xl font-semibold tracking-tight sm:text-4xl md:text-6xl"
         >
           Tech Stack
         </motion.h2>

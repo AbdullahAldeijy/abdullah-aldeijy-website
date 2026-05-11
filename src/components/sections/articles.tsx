@@ -8,7 +8,7 @@ const ENTRANCE_EASE = [0.22, 1, 0.36, 1] as const;
 
 export function Articles() {
   return (
-    <section id="articles" className="relative scroll-mt-20 py-24 md:py-32">
+    <section id="articles" className="relative scroll-mt-20 py-16 md:py-32">
       <div className="mx-auto max-w-3xl px-6 text-center">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -19,7 +19,7 @@ export function Articles() {
           <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-primary-glow backdrop-blur-md">
             <BookOpen className="h-8 w-8" />
           </div>
-          <h2 className="mt-6 text-4xl font-semibold tracking-tight md:text-5xl">
+          <h2 className="mt-6 text-3xl font-semibold tracking-tight sm:text-4xl md:text-5xl">
             Articles Coming Soon
           </h2>
           <p className="mt-4 text-base text-muted-foreground md:text-lg">

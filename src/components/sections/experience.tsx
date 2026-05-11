@@ -8,14 +8,14 @@ const ENTRANCE_EASE = [0.22, 1, 0.36, 1] as const;
 
 export function Experience() {
   return (
-    <section id="experience" className="relative scroll-mt-20 py-24 md:py-32">
+    <section id="experience" className="relative scroll-mt-20 py-16 md:py-32">
       <div className="mx-auto max-w-7xl px-6">
         <motion.h2
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.7, ease: ENTRANCE_EASE }}
-          className="text-4xl font-semibold tracking-tight md:text-6xl"
+          className="text-3xl font-semibold tracking-tight sm:text-4xl md:text-6xl"
         >
           Experience
         </motion.h2>

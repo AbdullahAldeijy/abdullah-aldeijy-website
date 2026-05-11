@@ -15,9 +15,9 @@ const STATS = [
 
 export function About() {
   return (
-    <section id="about" className="relative scroll-mt-20 py-24 md:py-32">
+    <section id="about" className="relative scroll-mt-20 py-16 md:py-32">
       <div className="mx-auto max-w-7xl px-6">
-        <div className="grid gap-12 md:grid-cols-2 md:gap-16">
+        <div className="grid gap-10 md:grid-cols-2 md:gap-16">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -30,14 +30,14 @@ export function About() {
                 About Me
               </span>
             </div>
-            <h2 className="text-4xl font-semibold tracking-tight md:text-6xl">
+            <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl md:text-6xl">
               Cloud-native systems,
               <br />
               <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
                 built to scale.
               </span>
             </h2>
-            <p className="mt-6 max-w-xl text-base text-muted-foreground md:text-lg">
+            <p className="mt-6 max-w-xl text-sm text-muted-foreground sm:text-base md:text-lg">
               Certified Solutions Architect &amp; Cloud Engineer with an
               Information Systems and Product Management background. I
               specialize in the full lifecycle of cloud-native applications,
@@ -45,7 +45,7 @@ export function About() {
               infrastructure that aligns technical scale with business goals.
             </p>
 
-            <div className="mt-10 grid grid-cols-3 gap-4">
+            <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-4">
               {STATS.map((stat) => (
                 <div
                   key={stat.label}
