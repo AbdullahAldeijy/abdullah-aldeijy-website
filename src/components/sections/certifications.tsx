@@ -1,31 +1,28 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Cloud } from "lucide-react";
-
-const ENTRANCE_EASE = [0.22, 1, 0.36, 1] as const;
-
-const CERTS = [
-  { code: "AZ-104", name: "Microsoft Azure Administrator Associate" },
-  { code: "AZ-204", name: "Microsoft Azure Developer Associate" },
-  { code: "AZ-305", name: "Microsoft Azure Solutions Architect Expert" },
-];
+import { Sparkles } from "lucide-react";
+import { CertificationCard } from "./certification-card";
+import { certifications } from "@/lib/certifications-data";
 
 const LEARNING = [
   {
     title: "Data Processing: Advanced Techniques",
     org: "Tuwaiq Academy",
-    period: "12/2025",
+    date: "12/2025",
+    side: "right" as const,
   },
   {
     title: "Digital Identity: Fundamentals and Principles",
     org: "Tuwaiq Academy",
-    period: "11/2025 – 12/2025",
+    date: "11/2025 – 12/2025",
+    side: "left" as const,
   },
   {
-    title: "GitHub and Git: Version Control",
+    title: "GitHub and Git: Version Control Systems",
     org: "Tuwaiq Academy",
-    period: "02/2026 – 03/2026",
+    date: "02/2026 – 03/2026",
+    side: "right" as const,
   },
 ];
 
@@ -33,81 +30,95 @@ export function Certifications() {
   return (
     <section
       id="certifications"
-      className="relative scroll-mt-20 py-24 md:py-32"
+      className="relative w-full overflow-hidden scroll-mt-20 px-6 py-24 md:py-32"
     >
-      <div className="mx-auto max-w-7xl px-6">
-        <motion.h2
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.7, ease: ENTRANCE_EASE }}
-          className="text-4xl font-semibold tracking-tight md:text-6xl"
-        >
-          Certifications
-        </motion.h2>
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute left-1/4 top-1/4 h-96 w-96 rounded-full bg-blue-500/10 blur-3xl" />
+        <div className="absolute bottom-1/4 right-1/4 h-96 w-96 rounded-full bg-purple-500/10 blur-3xl" />
+      </div>
 
-        <div className="mt-10 grid gap-6 md:max-w-5xl md:grid-cols-3">
-          {CERTS.map((c, i) => (
-            <motion.article
-              key={c.code}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{
-                duration: 0.6,
-                delay: i * 0.1,
-                ease: ENTRANCE_EASE,
-              }}
-              className="rounded-2xl border border-blue-500/30 bg-gradient-to-b from-[#0078D4]/20 to-black p-6 backdrop-blur-md"
-            >
-              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-blue-500/20 text-blue-300">
-                <Cloud className="h-6 w-6" />
-              </div>
-              <div className="text-xs uppercase tracking-wider text-blue-300">
-                {c.code}
-              </div>
-              <h3 className="mt-1 text-base font-semibold text-foreground">
-                {c.name}
-              </h3>
-              <button
-                type="button"
-                className="mt-5 inline-flex items-center gap-2 text-sm text-blue-300 transition-colors hover:text-white"
-              >
-                Verify →
-              </button>
-            </motion.article>
+      <div className="mx-auto max-w-7xl">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mb-16 text-center"
+        >
+          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 backdrop-blur-md">
+            <Sparkles size={14} className="text-blue-400" />
+            <span className="text-xs uppercase tracking-widest text-white/70">
+              Certified Expertise
+            </span>
+          </div>
+
+          <h2 className="mb-4 text-5xl font-bold text-white md:text-7xl">
+            Certifications
+          </h2>
+
+          <p className="mx-auto max-w-2xl text-lg text-neutral-400">
+            Microsoft Azure certifications validating expertise across
+            administration, development, and architecture.
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+          {certifications.map((cert, index) => (
+            <CertificationCard key={cert.id} cert={cert} index={index} />
           ))}
         </div>
 
-        <div className="mt-20">
-          <h3 className="text-2xl font-semibold tracking-tight text-foreground md:text-3xl">
-            Continuous Learning
-          </h3>
-          <ol className="mt-8 space-y-4 border-l border-white/10 pl-6 md:max-w-3xl">
-            {LEARNING.map((item, i) => (
-              <motion.li
-                key={item.title}
-                initial={{ opacity: 0, x: -16 }}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mt-24"
+        >
+          <div className="mb-12 text-center">
+            <h3 className="mb-2 text-2xl font-bold text-white md:text-3xl">
+              Continuous Learning
+            </h3>
+            <p className="text-sm text-neutral-400">
+              Always investing in growth through specialized programs
+            </p>
+          </div>
+
+          <div className="relative mx-auto max-w-3xl">
+            <div className="absolute bottom-0 left-4 top-0 w-px bg-gradient-to-b from-transparent via-white/20 to-transparent md:left-1/2 md:-translate-x-1/2" />
+
+            {LEARNING.map((program, idx) => (
+              <motion.div
+                key={program.title}
+                initial={{ opacity: 0, x: program.side === "right" ? 30 : -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-80px" }}
-                transition={{
-                  duration: 0.5,
-                  delay: i * 0.08,
-                  ease: ENTRANCE_EASE,
-                }}
-                className="relative"
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.15 }}
+                className={`relative mb-8 flex items-start gap-4 md:gap-8 ${
+                  program.side === "left" ? "md:flex-row-reverse" : ""
+                }`}
               >
-                <span className="absolute -left-[1.92rem] top-2 inline-flex h-2 w-2 rounded-full bg-primary" />
-                <div className="text-base font-medium text-foreground">
-                  {item.title}
+                <div className="absolute left-4 top-2 h-2 w-2 -translate-x-1/2 rounded-full bg-blue-400 ring-4 ring-blue-400/20 md:left-1/2" />
+
+                <div
+                  className={`ml-12 md:ml-0 md:w-1/2 ${
+                    program.side === "left"
+                      ? "md:pr-12 md:text-right"
+                      : "md:pl-12"
+                  }`}
+                >
+                  <div className="inline-block rounded-xl border border-white/10 bg-white/5 px-4 py-3 backdrop-blur-md transition-colors hover:border-white/20">
+                    <p className="text-sm font-semibold text-white">
+                      {program.title}
+                    </p>
+                    <p className="mt-1 text-xs text-white/50">{program.org}</p>
+                    <p className="mt-1 font-mono text-xs text-white/40">
+                      {program.date}
+                    </p>
+                  </div>
                 </div>
-                <div className="mt-1 text-sm text-muted-foreground">
-                  {item.org} · {item.period}
-                </div>
-              </motion.li>
+              </motion.div>
             ))}
-          </ol>
-        </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
