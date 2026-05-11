@@ -1,0 +1,8 @@
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+# Netlify auto-installs @netlify/plugin-nextjs when Next.js is detected;
+# declaring it explicitly avoids surprises if auto-install ever changes.
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
