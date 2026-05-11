@@ -4,6 +4,8 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Cloud, Container } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { ExperienceCard } from "./experience-card";
+import { experiences } from "@/lib/experience-data";
 
 const ENTRANCE_EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -23,28 +25,6 @@ const PROJECTS = [
       "Chatbot app on Azure VM connected to Azure PostgreSQL DB, with fully automated infrastructure using Terraform modules.",
     tags: ["Azure", "Terraform", "PostgreSQL", "IaC"],
     Icon: Cloud,
-  },
-];
-
-const EXPERIENCE = [
-  {
-    role: "Co-Founder & Solution Architect",
-    company: "Lunixa Cloud",
-    period: "06/2025 – Present · Part-Time",
-    description:
-      "Cloud consultancy delivering end-to-end services in migration, modernization, security, FinOps, and managed multi-cloud operations.",
-  },
-  {
-    role: "Product Manager Consultant",
-    company: "Setup Master",
-    period: "2022 – Present · Part-Time",
-    description: "E-commerce leader in PC hardware and custom builds.",
-  },
-  {
-    role: "Software Developer Intern",
-    company: "King Saud University",
-    period: "04/2024 – 07/2024",
-    description: "Coop training in the Deanship of E-Transactions.",
   },
 ];
 
@@ -121,36 +101,36 @@ export function Works() {
                 ))}
               </motion.div>
             ) : (
-              <motion.ul
+              <motion.div
                 key="experience"
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -16 }}
                 transition={{ duration: 0.4, ease: ENTRANCE_EASE }}
-                className="space-y-4 md:max-w-3xl"
+                className="relative mx-auto max-w-6xl py-12"
               >
-                {EXPERIENCE.map((exp) => (
-                  <li
-                    key={`${exp.role}-${exp.company}`}
-                    className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-md transition-colors ease-out-quint hover:border-primary/40"
-                  >
-                    <div className="flex flex-wrap items-baseline justify-between gap-2">
-                      <h3 className="text-lg font-semibold text-foreground">
-                        {exp.role}
-                      </h3>
-                      <span className="text-sm text-muted-foreground">
-                        {exp.period}
-                      </span>
-                    </div>
-                    <div className="mt-1 text-sm text-primary-glow">
-                      {exp.company}
-                    </div>
-                    <p className="mt-3 text-sm text-muted-foreground">
-                      {exp.description}
-                    </p>
-                  </li>
-                ))}
-              </motion.ul>
+                <div className="absolute bottom-0 left-4 top-0 w-px bg-gradient-to-b from-transparent via-white/20 to-transparent md:left-1/2 md:-translate-x-1/2" />
+
+                <div className="space-y-12 md:space-y-20">
+                  {experiences.map((exp, idx) => (
+                    <ExperienceCard key={exp.id} exp={exp} index={idx} />
+                  ))}
+                </div>
+
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true }}
+                  className="mt-16 text-center"
+                >
+                  <p className="mb-2 text-xs uppercase tracking-widest text-white/40">
+                    Total Experience
+                  </p>
+                  <p className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-3xl font-bold text-transparent">
+                    5+ Years
+                  </p>
+                </motion.div>
+              </motion.div>
             )}
           </AnimatePresence>
         </div>
