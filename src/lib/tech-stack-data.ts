@@ -59,7 +59,13 @@ export const categories: Category[] = [
       { name: "Terraform", slug: "terraform", color: "7B42BC" },
       { name: "Git", slug: "git", color: "F05032" },
       { name: "GitHub", slug: "github", color: "FFFFFF" },
-      { name: "Azure DevOps", slug: "azuredevops", color: "0078D7" },
+      {
+        name: "Azure DevOps",
+        slug: "azuredevops",
+        color: "0078D7",
+        iconUrl:
+          "https://raw.githubusercontent.com/devicons/devicon/master/icons/azuredevops/azuredevops-original.svg",
+      },
     ],
   },
   {
