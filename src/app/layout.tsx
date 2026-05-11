@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import "highlight.js/styles/github-dark.css";
 import { SITE } from "@/lib/constants";
 import { Navbar } from "@/components/layout/navbar";
 import { PersistentRobot } from "@/components/layout/persistent-robot";
@@ -21,6 +22,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE.url),
   title: `${SITE.fullName} — ${SITE.title}`,
   description: SITE.tagline,
 };

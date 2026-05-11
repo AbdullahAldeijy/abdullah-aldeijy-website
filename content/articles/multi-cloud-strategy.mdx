@@ -1,0 +1,68 @@
+---
+title: "Multi-Cloud Strategy: When It Makes Sense (And When It Does Not)"
+description: "Honest perspective on multi-cloud architecture from someone who has implemented it across Azure, AWS, and GCP."
+date: "2026-04-22"
+author: "Abdullah Aldeijy"
+tags: ["Multi-Cloud", "Architecture", "Strategy", "Cloud"]
+cover: "/images/articles/multi-cloud.jpg"
+published: true
+---
+
+## The Multi-Cloud Hype
+
+Every vendor pitch deck mentions multi-cloud. Every CTO wants to "avoid lock-in." But after implementing multi-cloud architectures for several clients, I have learned that **most organizations should not pursue multi-cloud as a primary strategy**.
+
+## When Multi-Cloud Makes Sense
+
+There are specific scenarios where multi-cloud delivers real value:
+
+### 1. Regulatory and Data Sovereignty
+
+When operating in regions with strict data residency requirements, you may need different providers for different regions. For example, a SaaS company serving the EU and the Middle East might use Azure in regions where Microsoft has stronger data residency commitments.
+
+### 2. Workload-Specific Strengths
+
+Some workloads simply run better on specific clouds:
+
+- **Machine Learning at scale**: GCP often wins with Vertex AI and TPU access
+- **Microsoft ecosystem**: Azure for organizations heavy on Microsoft 365 and Active Directory
+- **Mature serverless**: AWS Lambda still has the deepest ecosystem
+
+### 3. Disaster Recovery Across Providers
+
+For mission-critical systems, having DR in a different provider protects against provider-wide outages (which do happen).
+
+## When Multi-Cloud Is a Mistake
+
+### 1. "Avoiding Lock-In" as the Only Reason
+
+Lock-in concern is real but overstated. The cost of building cloud-agnostic abstractions is usually higher than the lock-in itself. You end up locked into your own abstraction layer.
+
+### 2. Small Engineering Teams
+
+Multi-cloud doubles or triples your operational complexity:
+
+- Two sets of IAM models
+- Two cost management approaches
+- Two networking topologies
+- Two sets of deployment pipelines
+
+If your team is under 20 engineers, single-cloud excellence beats multi-cloud mediocrity.
+
+### 3. "Best of Breed" Without Real Need
+
+Picking S3 for storage, BigQuery for analytics, and Azure AD for identity sounds clever. In practice, the cross-cloud data transfer costs and operational overhead destroy the supposed benefits.
+
+## A Pragmatic Framework
+
+When clients ask about multi-cloud, I use this framework:
+
+1. **Primary cloud**: 90% of workloads
+2. **Secondary cloud**: Specific workloads that benefit (ML, compliance)
+3. **DR cloud**: Critical systems only
+
+This gives you optionality without operational chaos.
+
+## Closing Thoughts
+
+Multi-cloud is a tool, not a strategy. Use it when the specific benefits outweigh the operational cost. Otherwise, invest in deep expertise on one cloud and ship products instead of managing complexity.

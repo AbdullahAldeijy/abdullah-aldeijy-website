@@ -1,39 +1,62 @@
-"use client";
-
-import { motion } from "framer-motion";
-import { BookOpen } from "lucide-react";
-import { SOCIAL_LINKS } from "@/lib/constants";
-
-const ENTRANCE_EASE = [0.22, 1, 0.36, 1] as const;
+import Link from "next/link";
+import { ArrowRight, BookOpen, Sparkles } from "lucide-react";
+import { getAllArticles } from "@/lib/articles";
+import { ArticlesGrid } from "./articles-grid";
 
 export function Articles() {
+  const articles = getAllArticles().slice(0, 3);
+
   return (
-    <section id="articles" className="relative scroll-mt-20 py-16 md:py-32">
-      <div className="mx-auto max-w-3xl px-6 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.7, ease: ENTRANCE_EASE }}
-        >
-          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-primary-glow backdrop-blur-md">
-            <BookOpen className="h-8 w-8" />
+    <section
+      id="articles"
+      className="relative w-full scroll-mt-20 overflow-hidden px-6 py-16 md:py-32"
+    >
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute left-1/3 top-1/3 h-96 w-96 rounded-full bg-blue-500/10 blur-3xl" />
+        <div className="absolute bottom-1/3 right-1/3 h-96 w-96 rounded-full bg-purple-500/10 blur-3xl" />
+      </div>
+
+      <div className="mx-auto max-w-7xl">
+        <div className="mb-16 text-center">
+          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 backdrop-blur-md">
+            <Sparkles size={14} className="text-blue-400" />
+            <span className="text-xs uppercase tracking-widest text-white/70">
+              Latest Writing
+            </span>
           </div>
-          <h2 className="mt-6 text-3xl font-semibold tracking-tight sm:text-4xl md:text-5xl">
-            Articles Coming Soon
+
+          <h2 className="mb-4 text-3xl font-bold text-white sm:text-4xl md:text-7xl">
+            Articles
           </h2>
-          <p className="mt-4 text-base text-muted-foreground md:text-lg">
-            I&apos;m preparing in-depth articles on cloud architecture, FinOps, and multi-cloud strategies.
+          <p className="mx-auto max-w-2xl text-base text-neutral-400 md:text-lg">
+            Insights on cloud architecture, FinOps, and multi-cloud strategies
+            from real-world experience.
           </p>
-          <a
-            href={SOCIAL_LINKS.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-8 inline-flex items-center justify-center rounded-full border border-primary/40 bg-primary/10 px-7 py-3 text-sm font-medium text-foreground transition-all ease-out-quint hover:border-primary hover:bg-primary/20 hover:shadow-[0_0_40px_-5px_var(--color-primary)]"
-          >
-            Connect on LinkedIn
-          </a>
-        </motion.div>
+        </div>
+
+        {articles.length === 0 ? (
+          <div className="mx-auto max-w-md py-16 text-center">
+            <BookOpen size={48} className="mx-auto mb-4 text-white/30" />
+            <h3 className="mb-2 text-2xl font-bold text-white">Coming Soon</h3>
+            <p className="text-white/50">
+              I am preparing in-depth articles on cloud architecture and FinOps.
+            </p>
+          </div>
+        ) : (
+          <>
+            <ArticlesGrid articles={articles} />
+
+            <div className="text-center">
+              <Link
+                href="/articles"
+                className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-3 text-white transition-all hover:border-white/30 hover:bg-white/10"
+              >
+                View all articles
+                <ArrowRight size={16} />
+              </Link>
+            </div>
+          </>
+        )}
       </div>
     </section>
   );
