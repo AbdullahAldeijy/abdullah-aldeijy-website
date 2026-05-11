@@ -20,29 +20,25 @@ export function Experience() {
           Experience
         </motion.h2>
 
-        <div className="relative mx-auto mt-10 max-w-6xl py-8">
-          <div className="absolute bottom-0 left-4 top-0 w-px bg-gradient-to-b from-transparent via-white/20 to-transparent md:left-1/2 md:-translate-x-1/2" />
-
-          <div className="space-y-8 md:space-y-10">
-            {experiences.map((exp, idx) => (
-              <ExperienceCard key={exp.id} exp={exp} index={idx} />
-            ))}
-          </div>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="mt-10 text-center"
-          >
-            <p className="mb-1 text-xs uppercase tracking-widest text-white/40">
-              Total Experience
-            </p>
-            <p className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-2xl font-bold text-transparent">
-              5+ Years
-            </p>
-          </motion.div>
+        <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2">
+          {experiences.map((exp, idx) => (
+            <ExperienceCard key={exp.id} exp={exp} index={idx} />
+          ))}
         </div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="mt-12 text-center"
+        >
+          <p className="mb-1 text-xs uppercase tracking-widest text-white/40">
+            Total Experience
+          </p>
+          <p className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-2xl font-bold text-transparent">
+            5+ Years
+          </p>
+        </motion.div>
       </div>
     </section>
   );

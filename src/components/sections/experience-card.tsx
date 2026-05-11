@@ -18,41 +18,15 @@ interface Props {
 export function ExperienceCard({ exp, index }: Props) {
   const duration = calculateDuration(exp.startDate, exp.endDate);
   const period = `${formatDate(exp.startDate)} — ${formatDate(exp.endDate)}`;
-  const isLeft = index % 2 === 0;
 
   return (
     <motion.div
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.6, delay: 0.1 }}
+      transition={{ duration: 0.6, delay: index * 0.08 }}
       className="relative"
     >
-      <div className="absolute left-4 top-8 z-20 -translate-x-1/2 md:left-1/2">
-        <div className="relative">
-          {exp.isCurrent && (
-            <div
-              className="absolute inset-0 h-4 w-4 animate-ping rounded-full"
-              style={{ background: exp.glowColor }}
-            />
-          )}
-          <div
-            className={`relative h-4 w-4 rounded-full border-2 ${
-              exp.isCurrent ? "border-white" : "border-white/50"
-            }`}
-            style={{
-              background: exp.isCurrent ? exp.glowColor : "rgba(255,255,255,0.1)",
-              boxShadow: exp.isCurrent ? `0 0 20px ${exp.glowColor}` : "none",
-            }}
-          />
-        </div>
-      </div>
-
-      <div
-        className={`pl-12 md:w-1/2 md:pl-0 ${
-          isLeft ? "md:pr-12" : "md:ml-auto md:pl-12"
-        }`}
-      >
         <Tilt
           tiltMaxAngleX={5}
           tiltMaxAngleY={5}
@@ -69,9 +43,7 @@ export function ExperienceCard({ exp, index }: Props) {
 
             <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-b from-white/[0.07] to-white/[0.02] p-5 backdrop-blur-xl md:p-6">
               <div
-                className={`absolute -top-20 h-40 w-40 rounded-full bg-gradient-to-br opacity-20 blur-3xl ${
-                  isLeft ? "-right-20" : "-left-20"
-                } ${exp.brandColor}`}
+                className={`absolute -right-20 -top-20 h-40 w-40 rounded-full bg-gradient-to-br opacity-20 blur-3xl ${exp.brandColor}`}
               />
 
               <div className="mb-4 flex items-start justify-between">
@@ -150,8 +122,7 @@ export function ExperienceCard({ exp, index }: Props) {
               </div>
             </div>
           </div>
-        </Tilt>
-      </div>
+      </Tilt>
     </motion.div>
   );
 }
