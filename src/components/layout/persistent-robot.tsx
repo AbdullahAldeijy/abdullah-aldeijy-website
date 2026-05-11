@@ -83,14 +83,8 @@ export function PersistentRobot() {
     return 1 - t * (1 - SCALE_MIN_DESKTOP);
   });
 
-  const opacity = useTransform(scrollY, (latest) => {
-    const vh = vhRef.current;
-    if (isMobileRef.current) {
-      if (latest <= vh * 0.4) return 0.4;
-      if (latest >= vh * 0.85) return 0;
-      return 0.4 - ((latest - vh * 0.4) / (vh * 0.45)) * 0.4;
-    }
-    return latest <= vh * 0.7 ? 1 : 0.9;
+  const opacity = useTransform(scrollY, () => {
+    return isMobileRef.current ? 0.5 : 1;
   });
 
   const pulseOpacity = useTransform(scrollY, (latest) => {

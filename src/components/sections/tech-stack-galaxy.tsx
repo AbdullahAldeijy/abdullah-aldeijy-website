@@ -5,7 +5,6 @@ import Image from "next/image";
 import { AnimatePresence, motion, useInView } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
 import { categories } from "@/lib/tech-stack-data";
-import { useRobotVisibility } from "@/lib/robot-visibility";
 
 const CATEGORY_ORBIT_RADIUS = 220;
 const TOOL_ORBIT_RADIUS = 280;
@@ -29,15 +28,9 @@ function getOrbitPosition(
 export function TechStackGalaxy() {
   const sectionRef = useRef<HTMLElement>(null);
   const inView = useInView(sectionRef, { amount: 0.35 });
-  const { setHidden } = useRobotVisibility();
 
   const [rotationAngle, setRotationAngle] = useState(0);
   const [selectedId, setSelectedId] = useState<number | null>(null);
-
-  useEffect(() => {
-    setHidden(inView);
-    return () => setHidden(false);
-  }, [inView, setHidden]);
 
   useEffect(() => {
     if (selectedId !== null || !inView) return;
