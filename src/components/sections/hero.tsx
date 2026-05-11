@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { motion } from "framer-motion";
 import { SITE } from "@/lib/constants";
 
@@ -31,18 +30,6 @@ export function Hero() {
           <p className="mt-6 max-w-xl text-base text-muted-foreground md:text-lg">
             {SITE.tagline}
           </p>
-          <div className="mt-10">
-            <Link
-              href="#contact"
-              className="group pointer-events-auto relative inline-flex items-center justify-center overflow-hidden rounded-full border border-primary/40 bg-primary/10 px-7 py-3 text-sm font-medium text-foreground transition-all ease-out-quint hover:border-primary hover:bg-primary/20 hover:shadow-[0_0_40px_-5px_var(--color-primary)]"
-            >
-              <span className="relative z-10">Let&apos;s Talk</span>
-              <span
-                aria-hidden
-                className="pointer-events-none absolute inset-0 -z-0 rounded-full bg-primary/0 blur-xl transition-colors ease-out-quint group-hover:bg-primary/40"
-              />
-            </Link>
-          </div>
         </motion.div>
       </div>
     </section>

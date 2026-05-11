@@ -44,13 +44,6 @@ export function Navbar() {
             </li>
           ))}
         </ul>
-
-        <Link
-          href="#contact"
-          className="group relative inline-flex items-center justify-center rounded-full border border-primary/40 bg-primary/10 px-5 py-2 text-sm font-medium text-foreground transition-all ease-out-quint hover:border-primary hover:bg-primary/20 hover:shadow-[0_0_30px_-6px_var(--color-primary)]"
-        >
-          Let&apos;s Talk
-        </Link>
       </nav>
     </header>
   );

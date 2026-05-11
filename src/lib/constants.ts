@@ -16,7 +16,6 @@ export const NAV_LINKS = [
   { href: "#tech-stack", label: "Tech Stack" },
   { href: "#certifications", label: "Certifications" },
   { href: "#articles", label: "Articles" },
-  { href: "#contact", label: "Contact" },
 ] as const;
 
 export const SOCIAL_LINKS = {
