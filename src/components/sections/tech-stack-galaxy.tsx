@@ -1,16 +1,12 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { AnimatePresence, motion, useInView } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
-import { SplineScene } from "@/components/ui/splite";
-import { RobotFallback } from "@/components/ui/robot-fallback";
 import { categories } from "@/lib/tech-stack-data";
 import { useRobotVisibility } from "@/lib/robot-visibility";
-import { useLowEndDevice } from "@/lib/use-low-end-device";
 
-const SPLINE_SCENE =
-  "https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode";
 const CATEGORY_ORBIT_RADIUS = 220;
 const TOOL_ORBIT_RADIUS = 280;
 const ENTRANCE_EASE = [0.22, 1, 0.36, 1] as const;
@@ -20,8 +16,9 @@ function getOrbitPosition(
   total: number,
   radius: number,
   rotationDeg: number,
+  startAngleDeg: number,
 ) {
-  const angleDeg = (index / total) * 360 + rotationDeg - 90;
+  const angleDeg = startAngleDeg + (index / total) * 360 + rotationDeg;
   const angleRad = (angleDeg * Math.PI) / 180;
   return {
     x: radius * Math.cos(angleRad),
@@ -33,7 +30,6 @@ export function TechStackGalaxy() {
   const sectionRef = useRef<HTMLElement>(null);
   const inView = useInView(sectionRef, { amount: 0.35 });
   const { setHidden } = useRobotVisibility();
-  const isLowEnd = useLowEndDevice();
 
   const [rotationAngle, setRotationAngle] = useState(0);
   const [selectedId, setSelectedId] = useState<number | null>(null);
@@ -96,48 +92,62 @@ export function TechStackGalaxy() {
 
       <div className="relative mx-auto hidden h-[700px] w-full max-w-5xl items-center justify-center md:flex">
         <div className="pointer-events-none absolute z-10 flex h-48 w-48 items-center justify-center">
-          <div className="relative h-44 w-44 overflow-hidden rounded-full border border-white/20 bg-gradient-to-br from-blue-500/20 to-purple-500/20 backdrop-blur-md">
-            {isLowEnd ? (
-              <RobotFallback />
-            ) : (
-              inView && (
-                <SplineScene scene={SPLINE_SCENE} className="h-full w-full" />
-              )
-            )}
+          <div className="relative h-40 w-40 overflow-hidden rounded-full border-2 border-white/20 shadow-2xl shadow-blue-500/30">
+            <Image
+              src="/images/abdullah-image.jpg"
+              alt="Abdullah Aldeijy"
+              fill
+              className="object-cover"
+              priority
+              sizes="160px"
+            />
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-purple-500/10" />
           </div>
-          <div className="absolute h-56 w-56 animate-ping rounded-full border border-white/10 opacity-50" />
+          <div className="absolute h-48 w-48 animate-ping rounded-full border border-white/10 opacity-50" />
           <div
-            className="absolute h-64 w-64 animate-ping rounded-full border border-white/5 opacity-30"
+            className="absolute h-56 w-56 animate-ping rounded-full border border-white/5 opacity-30"
             style={{ animationDelay: "0.7s" }}
+          />
+          <div
+            className="absolute h-64 w-64 animate-ping rounded-full border border-white/5 opacity-20"
+            style={{ animationDelay: "1.4s" }}
           />
         </div>
 
         <AnimatePresence>
           {selectedCategory && (
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.4, ease: ENTRANCE_EASE }}
-              className="absolute left-1/2 top-8 z-50 flex -translate-x-1/2 flex-col items-center gap-2"
-            >
-              <button
+            <>
+              <motion.button
+                key="back"
                 type="button"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.4, ease: ENTRANCE_EASE }}
                 onClick={() => setSelectedId(null)}
-                className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-white/70 backdrop-blur-md transition-all ease-out-quint hover:border-white/30 hover:text-white"
+                className="absolute left-6 top-6 z-50 flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-white/70 backdrop-blur-md transition-all ease-out-quint hover:border-white/30 hover:text-white"
               >
                 <ArrowLeft className="h-3.5 w-3.5" />
                 Back to Categories
-              </button>
-              <h3
-                className={`bg-gradient-to-r bg-clip-text text-2xl font-bold text-transparent ${selectedCategory.color}`}
+              </motion.button>
+              <motion.div
+                key="title"
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.4, ease: ENTRANCE_EASE }}
+                className="pointer-events-none absolute left-1/2 top-8 z-40 flex -translate-x-1/2 flex-col items-center gap-1"
               >
-                {selectedCategory.title}
-              </h3>
-              <p className="text-xs text-white/40">
-                {selectedCategory.tools.length} tools
-              </p>
-            </motion.div>
+                <h3
+                  className={`bg-gradient-to-r bg-clip-text text-3xl font-bold text-transparent md:text-4xl ${selectedCategory.color}`}
+                >
+                  {selectedCategory.title}
+                </h3>
+                <p className="text-xs uppercase tracking-widest text-white/40">
+                  {selectedCategory.tools.length} tools
+                </p>
+              </motion.div>
+            </>
           )}
         </AnimatePresence>
 
@@ -157,6 +167,7 @@ export function TechStackGalaxy() {
                   categories.length,
                   CATEGORY_ORBIT_RADIUS,
                   rotationAngle,
+                  -90,
                 );
                 const Icon = cat.icon;
                 return (
@@ -195,6 +206,7 @@ export function TechStackGalaxy() {
                   i,
                   selectedCategory.tools.length,
                   TOOL_ORBIT_RADIUS,
+                  0,
                   0,
                 );
                 return (
