@@ -118,7 +118,7 @@ export const SocialLinks: React.FC<SocialLinksProps> = ({
     <>
       <div
         className={`${
-          showOnMobile ? "hidden lg:flex" : "hidden md:flex"
+          showOnMobile ? "hidden md:flex" : "hidden md:flex"
         } flex-col fixed top-[35%] left-0 z-40`}
       >
         <ul className="space-y-3">
@@ -162,7 +162,7 @@ export const SocialLinks: React.FC<SocialLinksProps> = ({
       </div>
 
       {showOnMobile && (
-        <div className="fixed bottom-6 right-6 z-50 lg:hidden">
+        <div className="fixed bottom-6 right-6 z-50 md:hidden">
           {mobileDockOpen && (
             <div
               className="fixed inset-0 bg-background/60 backdrop-blur-sm"
